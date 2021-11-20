@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import './components/file_explorer/file_explorer_grid.dart';
 import './components/layout/app_bar.dart';
 import './components/sidebar/sidebar.dart';
-import './components/sidebar/sidebar_resizable_selector.dart';
+import './components/sidebar/sidebar_resizer.dart';
 import './stores/directory_store.dart';
 import './stores/sidebar_store.dart';
 
@@ -78,7 +78,7 @@ class _FileExplorer extends State<FileExplorer> {
       body: Row(
         children: [
           Sidebar(width: width),
-          SidebarResizableSelector(
+          SidebarResizer(
             onResize: (w) => setState(() => width = w),
           ),
           Expanded(

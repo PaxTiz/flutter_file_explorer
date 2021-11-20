@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SidebarResizableSelector extends StatelessWidget {
+class SidebarResizer extends StatelessWidget {
   final ValueSetter<double> onResize;
-  const SidebarResizableSelector({required this.onResize});
+
+  const SidebarResizer({required this.onResize});
 
   @override
   Widget build(BuildContext context) {
