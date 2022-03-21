@@ -10,27 +10,51 @@ import '../../core/utils/dialogs.dart';
 import '../../core/utils/path.dart';
 
 class CustomAppBar extends StatelessWidget {
+  void _createFolder(BuildContext context) {
+    showCustomDialog(context, CreateDirectoryModal());
+  }
+
+  void _createFile(BuildContext context) {
+    showCustomDialog(context, CreateFileModal());
+  }
+
+  void _moveHistoryPrevious(BuildContext context) {
+    context.read<DirectoryStore>().moveHistoryPrevious();
+  }
+
+  void _moveHistoryNext(BuildContext context) {
+    context.read<DirectoryStore>().moveHistoryNext();
+  }
+
   @override
   Widget build(BuildContext context) {
     const double iconSize = 24;
     final currentDirectory = context.watch<DirectoryStore>().currentDir;
-
-    void _createFolder(BuildContext context) {
-      showCustomDialog(context, CreateDirectoryModal());
-    }
-
-    void _createFile(BuildContext context) {
-      showCustomDialog(context, CreateFileModal());
-    }
+    final canMovePrevious = context.watch<DirectoryStore>().canMovePrevious;
+    final canMoveNext = context.watch<DirectoryStore>().canMoveNext;
 
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(FluentIcons.chevron_left_16_filled, size: iconSize),
+          GestureDetector(
+            onTap: () => _moveHistoryPrevious(context),
+            child: Icon(
+              FluentIcons.chevron_left_16_filled,
+              color: canMovePrevious ? Colors.white : Colors.grey.shade600,
+              size: iconSize,
+            ),
+          ),
           horizontalSpacing,
-          const Icon(FluentIcons.chevron_right_16_filled, size: iconSize),
+          GestureDetector(
+            onTap: () => _moveHistoryNext(context),
+            child: Icon(
+              FluentIcons.chevron_right_16_filled,
+              color: canMoveNext ? Colors.white : Colors.grey.shade600,
+              size: iconSize,
+            ),
+          ),
           horizontalSpacing,
           Text(
             fileOrDirectoryName(currentDirectory),

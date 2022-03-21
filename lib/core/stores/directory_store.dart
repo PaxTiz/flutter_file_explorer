@@ -7,6 +7,8 @@ import '../utils/path.dart';
 class DirectoryStore extends ChangeNotifier {
   late Directory _currentFolder;
   String? _selectedItem;
+  final List<String> _history = [];
+  int _historyIndex = 0;
 
   DirectoryStore() {
     final userDirectory = Platform.environment['HOME'];
@@ -15,10 +17,13 @@ class DirectoryStore extends ChangeNotifier {
     }
 
     _currentFolder = Directory(userDirectory);
+    _history.add(userDirectory);
   }
 
-  Iterable<FileSystemEntity> children(
-      {bool hidden = false, withDirectories = false}) {
+  Iterable<FileSystemEntity> children({
+    bool hidden = false,
+    withDirectories = false,
+  }) {
     if (!withDirectories && !hidden) {
       return _currentFolder
           .listSync()
@@ -36,6 +41,26 @@ class DirectoryStore extends ChangeNotifier {
     return _currentFolder.listSync();
   }
 
+  // TODO; Handle case when user go to another directory after go back
+  bool get canMovePrevious => _historyIndex > 0;
+  bool get canMoveNext => _historyIndex < _history.length - 1;
+
+  void moveHistoryPrevious() {
+    if (_historyIndex > 0) {
+      _historyIndex -= 1;
+      _currentFolder = Directory(_history[_historyIndex]);
+      notifyListeners();
+    }
+  }
+
+  void moveHistoryNext() {
+    if (_historyIndex < _history.length - 1) {
+      _historyIndex += 1;
+      _currentFolder = Directory(_history[_historyIndex]);
+      notifyListeners();
+    }
+  }
+
   void createDirectory(String name) {
     final dir = Directory(name);
     if (dir.existsSync()) {
@@ -45,6 +70,8 @@ class DirectoryStore extends ChangeNotifier {
 
     dir.createSync(recursive: true);
     _currentFolder = dir;
+    _history.add(dir.path);
+    _historyIndex += 1;
     notifyListeners();
   }
 
@@ -62,6 +89,8 @@ class DirectoryStore extends ChangeNotifier {
   Directory get currentDir => _currentFolder;
   set currentFolder(Directory directory) {
     _currentFolder = directory;
+    _history.add(directory.path);
+    _historyIndex += 1;
     notifyListeners();
   }
 
