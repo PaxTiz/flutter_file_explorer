@@ -1,11 +1,14 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../core/constants/colors.dart';
 import '../../stores/directory_store.dart';
+import '../modals/custom_modal.dart';
+import '../shared/custom_button.dart';
+import '../shared/custom_input.dart';
 
 class CreateFileModal extends StatefulWidget {
   @override
@@ -17,7 +20,7 @@ class _CreateFileModal extends State<CreateFileModal> {
   final _formKey = GlobalKey<FormState>();
   String? _error;
 
-  void _createDirectory(BuildContext context, Directory currentDir) {
+  void _createFile(BuildContext context, Directory currentDir) {
     if (_formKey.currentState!.validate()) {
       final fullName = currentDir.path + '/${_controller.text}';
       try {
@@ -33,87 +36,53 @@ class _CreateFileModal extends State<CreateFileModal> {
   Widget build(BuildContext context) {
     final _currentDir = context.read<DirectoryStore>().currentDir;
 
-    return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.width / 3,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Create a file in ${_currentDir.path}',
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: 15,
-                  ),
-            ),
-            verticalSpacing,
-            if (_error != null)
-              Text(
-                _error!,
-                style: const TextStyle(color: CupertinoColors.destructiveRed),
-              ),
-            if (_error != null) verticalSpacing,
-            Form(
+    return CustomModal(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Create a file in ${_currentDir.path}',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  fontSize: 15,
+                ),
+          ),
+          verticalSpacing,
+          Material(
+            color: dark0,
+            child: Form(
               key: _formKey,
-              child: CupertinoTextFormFieldRow(
-                padding: EdgeInsets.zero,
+              child: CustomInput(
                 controller: _controller,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                ),
-                style: TextStyle(
-                  color: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .color
-                      ?.withOpacity(.5),
-                ),
+                error: _error,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'The file name cannot be empty';
                   }
+                  return null;
                 },
               ),
             ),
-            verticalSpacing,
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Spacer(),
-                TextButton.icon(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(
-                    CupertinoIcons.xmark,
-                    color: CupertinoColors.destructiveRed,
-                  ),
-                  label: const Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: CupertinoColors.destructiveRed,
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                    primary: CupertinoColors.destructiveRed,
-                  ),
-                ),
-                horizontalSpacing,
-                TextButton.icon(
-                  onPressed: () => _createDirectory(context, _currentDir),
-                  icon: const Icon(CupertinoIcons.plus),
-                  label: const Text('Create'),
-                ),
-              ],
-            )
-          ],
-        ),
+          ),
+          verticalSpacing,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Spacer(),
+              ErrorButton(
+                onPressed: () => Navigator.of(context).pop(),
+                text: 'Cancel',
+              ),
+              horizontalSpacing,
+              SuccessButton(
+                onPressed: () => _createFile(context, _currentDir),
+                text: 'Create',
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

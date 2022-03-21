@@ -8,6 +8,7 @@ import './components/sidebar/sidebar.dart';
 import './components/sidebar/sidebar_resizer.dart';
 import './stores/directory_store.dart';
 import './stores/sidebar_store.dart';
+import 'core/constants/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         darkTheme: ThemeData(
           fontFamily: 'SF Pro Text',
-          backgroundColor: Colors.black,
+          backgroundColor: dark0,
           textTheme: const TextTheme(
             headline6: TextStyle(
               color: Colors.white,
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
           ).apply(
             bodyColor: Colors.white,
             displayColor: Colors.white,
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            errorStyle: TextStyle(color: red),
           ),
           iconTheme: const IconThemeData(
             color: Colors.white,
@@ -82,12 +86,17 @@ class _FileExplorer extends State<FileExplorer> {
             onResize: (w) => setState(() => width = w),
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomAppBar(),
-                FileExplorerGrid(),
-              ],
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                color: dark1,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomAppBar(),
+                  FileExplorerGrid(),
+                ],
+              ),
             ),
           ),
         ],

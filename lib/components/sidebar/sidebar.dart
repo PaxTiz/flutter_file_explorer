@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +7,7 @@ import 'sidebar_group_list.dart';
 class Sidebar extends StatelessWidget {
   final double width;
 
-  Sidebar({required this.width});
+  const Sidebar({required this.width});
 
   @override
   Widget build(BuildContext context) {

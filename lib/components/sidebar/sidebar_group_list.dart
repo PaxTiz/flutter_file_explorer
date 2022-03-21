@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../stores/directory_store.dart';
@@ -26,7 +25,11 @@ class SidebarGroupList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 8,
+              bottom: 8,
+            ),
             child: Text(
               title,
               style: const TextStyle(

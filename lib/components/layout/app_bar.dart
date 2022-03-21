@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,6 +6,7 @@ import '../../components/modals/create_directory_modal.dart';
 import '../../components/modals/create_file_modal.dart';
 import '../../constants.dart';
 import '../../stores/directory_store.dart';
+import '../../utils/dialogs.dart';
 import '../../utils/path.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -15,19 +16,11 @@ class CustomAppBar extends StatelessWidget {
     final currentDirectory = context.watch<DirectoryStore>().currentDir;
 
     void _createFolder(BuildContext context) {
-      showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (_) => CreateDirectoryModal(),
-      );
+      showCustomDialog(context, CreateDirectoryModal());
     }
 
     void _createFile(BuildContext context) {
-      showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (_) => CreateFileModal(),
-      );
+      showCustomDialog(context, CreateFileModal());
     }
 
     return Padding(
@@ -35,9 +28,9 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(CupertinoIcons.chevron_left, size: iconSize),
+          const Icon(FluentIcons.chevron_left_16_filled, size: iconSize),
           horizontalSpacing,
-          const Icon(CupertinoIcons.chevron_right, size: iconSize),
+          const Icon(FluentIcons.chevron_right_16_filled, size: iconSize),
           horizontalSpacing,
           Text(
             fileOrDirectoryName(currentDirectory),
@@ -49,15 +42,21 @@ class CustomAppBar extends StatelessWidget {
           horizontalSpacing,
           GestureDetector(
             onTap: () => _createFile(context),
-            child: const Icon(CupertinoIcons.doc_text, size: iconSize),
+            child: const Icon(
+              FluentIcons.document_add_16_regular,
+              size: iconSize,
+            ),
           ),
           horizontalSpacing,
           GestureDetector(
             onTap: () => _createFolder(context),
-            child: const Icon(CupertinoIcons.folder_badge_plus, size: iconSize),
+            child: const Icon(
+              FluentIcons.folder_add_16_regular,
+              size: iconSize,
+            ),
           ),
           horizontalSpacing,
-          const Icon(CupertinoIcons.search, size: iconSize),
+          const Icon(FluentIcons.search_16_regular, size: iconSize),
         ],
       ),
     );

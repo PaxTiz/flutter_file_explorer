@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/constants/colors.dart';
 import '../../stores/directory_store.dart';
 
 class SidebarGroupItem extends StatelessWidget {
@@ -11,7 +11,7 @@ class SidebarGroupItem extends StatelessWidget {
   final FileSystemEntity item;
   final FileSystemEntity selectedItem;
 
-  SidebarGroupItem({
+  const SidebarGroupItem({
     required this.name,
     required this.item,
     required this.selectedItem,
@@ -27,9 +27,7 @@ class SidebarGroupItem extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: item.path == selectedItem.path
-              ? Theme.of(context).scaffoldBackgroundColor
-              : Colors.transparent,
+          color: item.path == selectedItem.path ? dark2 : Colors.transparent,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
