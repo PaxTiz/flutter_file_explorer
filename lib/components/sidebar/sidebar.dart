@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../stores/sidebar_store.dart';
+import '../../core/stores/sidebar_store.dart';
 import 'sidebar_group_list.dart';
 
 class Sidebar extends StatelessWidget {

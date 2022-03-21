@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../core/constants/colors.dart';
-import '../../stores/directory_store.dart';
+import '../../core/stores/directory_store.dart';
 import '../modals/custom_modal.dart';
 import '../shared/custom_button.dart';
 import '../shared/custom_input.dart';

@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import '../../components/modals/create_directory_modal.dart';
 import '../../components/modals/create_file_modal.dart';
 import '../../constants.dart';
-import '../../stores/directory_store.dart';
-import '../../utils/dialogs.dart';
-import '../../utils/path.dart';
+import '../../core/stores/directory_store.dart';
+import '../../core/utils/dialogs.dart';
+import '../../core/utils/path.dart';
 
 class CustomAppBar extends StatelessWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/constants/colors.dart';
+import '../constants/colors.dart';
 
 void showCustomDialog(BuildContext context, Widget content) {
   showDialog(

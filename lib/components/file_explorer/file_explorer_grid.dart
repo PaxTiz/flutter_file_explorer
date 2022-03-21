@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/colors.dart';
-import '../../stores/directory_store.dart';
+import '../../core/stores/directory_store.dart';
 import 'file_explorer_grid_item.dart';
 
 class FileExplorerGrid extends StatelessWidget {

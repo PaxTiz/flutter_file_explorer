@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/colors.dart';
-import '../../stores/directory_store.dart';
+import '../../core/stores/directory_store.dart';
 
 class SidebarGroupItem extends StatelessWidget {
   final String name;

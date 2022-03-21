@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../utils/icon.dart';
-import '../../utils/path.dart';
+import '../../core/utils/icon.dart';
+import '../../core/utils/path.dart';
 
 class FileExplorerItem extends StatelessWidget {
   static const baseIconPath = 'assets/images/icons/';

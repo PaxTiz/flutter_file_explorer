@@ -6,8 +6,8 @@ import './components/file_explorer/file_explorer_grid.dart';
 import './components/layout/app_bar.dart';
 import './components/sidebar/sidebar.dart';
 import './components/sidebar/sidebar_resizer.dart';
-import './stores/directory_store.dart';
-import './stores/sidebar_store.dart';
+import './core/stores/directory_store.dart';
+import './core/stores/sidebar_store.dart';
 import 'core/constants/colors.dart';
 
 void main() {

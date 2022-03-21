@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../../stores/directory_store.dart';
+import '../../core/stores/directory_store.dart';
 import 'sidebar_group_item.dart';
 
 class SidebarGroupList extends StatelessWidget {
